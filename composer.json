@@ -13,7 +13,8 @@
   "minimum-stability": "stable",
   "extra": {
     "moduleClass": "Besnovatyj\\Dmarc\\Module",
-    "moduleId": "Dmarc"
+    "moduleId": "Dmarc",
+    "bescms": { "kind": "module" }
   },
   "keywords": [
     "yii2",

@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * Copyright (c) 2026 Besnovatyj. Licensed under the MIT License.
  */
@@ -9,37 +8,23 @@ declare(strict_types=1);
 
 namespace Besnovatyj\Dmarc;
 
-use common\components\module\BaseModule;
+use common\components\module\CmsModule;
+use modules\modmanNew\contract\DeclaresModule;
+use modules\modmanNew\contract\ProvidesAdminMenu;
+use modules\modmanNew\contract\ProvidesMigrations;
 use Yii;
 
 /**
  * Модуль просмотра DMARC aggregate-отчётов.
  * Позволяет загружать ZIP/GZ архивы с отчётами, сохранять их в БД и просматривать.
  */
-class Module extends BaseModule
+class Module extends CmsModule implements
+    DeclaresModule, ProvidesAdminMenu,
+    ProvidesMigrations
 {
     public const bool EDITABLE = true;
     public const string VERSION = '1.0.0';
-
-    public static function getAdminMenu(): array
-    {
-        return require __DIR__ . '/config/adminMenu.php';
-    }
-
-    public static function getConfig(): array
-    {
-        return require __DIR__ . '/config/config.php';
-    }
-
-    public static function getOptions(): array
-    {
-        return require __DIR__ . '/config/options.php';
-    }
-
-    public static function getDependencies(): array
-    {
-        return require __DIR__ . '/config/dependencies.php';
-    }
+    public const string MODULE_ID = 'Dmarc';
 
     public function init(): void
     {
@@ -53,4 +38,12 @@ class Module extends BaseModule
             ];
         }
     }
+    public static function moduleId(): string { return self::MODULE_ID; }
+    public static function moduleVersion(): string { return self::VERSION; }
+    public static function isEditable(): bool { return self::EDITABLE; }
+    public static function adminMenu(): array { return require __DIR__.'/config/adminMenu.php'; }
+    public static function moduleConfig(): array { return require __DIR__.'/config/config.php'; }
+    public static function migrationPath(): string { return __DIR__.'/migrations'; }
+    public static function migrationNamespace(): ?string { return __NAMESPACE__.'\\migrations'; }
+
 }
