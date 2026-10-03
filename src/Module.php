@@ -10,7 +10,6 @@ namespace Besnovatyj\Dmarc;
 
 use Besnovatyj\Kernel\module\CmsModule;
 use Besnovatyj\Contracts\module\DeclaresModule;
-use Besnovatyj\Contracts\module\ProvidesAdminMenu;
 use Besnovatyj\Contracts\module\ProvidesMigrations;
 use Yii;
 
@@ -19,7 +18,7 @@ use Yii;
  * Позволяет загружать ZIP/GZ архивы с отчётами, сохранять их в БД и просматривать.
  */
 class Module extends CmsModule implements
-    DeclaresModule, ProvidesAdminMenu,
+    DeclaresModule, 
     ProvidesMigrations
 {
     public const bool EDITABLE = true;
@@ -41,7 +40,6 @@ class Module extends CmsModule implements
     public static function moduleId(): string { return self::MODULE_ID; }
     public static function moduleVersion(): string { return self::VERSION; }
     public static function isEditable(): bool { return self::EDITABLE; }
-    public static function adminMenu(): array { return require __DIR__.'/config/adminMenu.php'; }
     public static function moduleConfig(): array { return require __DIR__.'/config/config.php'; }
     public static function migrationPath(): string { return __DIR__.'/migrations'; }
     public static function migrationNamespace(): ?string { return __NAMESPACE__.'\\migrations'; }
